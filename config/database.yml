@@ -1,0 +1,25 @@
+default: &default
+  adapter: mysql2
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *default
+  host: 127.0.0.1
+  username: root
+  password:
+  database: bmp1-api-service
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  host: 127.0.0.1
+  username: root
+  password:
+  database: bmp1-api-service-test
+
+production:
+  <<: *default
+  database: bmp1-api-service
