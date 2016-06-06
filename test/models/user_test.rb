@@ -19,6 +19,13 @@ class UserTest < ActiveSupport::TestCase
     assert invalid_email, "User accepted with an invalid email"
   end
 
+  test "should refuse repeated email" do
+    matheus = users(:matheus)
+    impostor = User.create name: "Impostor", email: matheus.email
+    invalid_email = impostor.errors.messages.key? :email
+    assert invalid_email, "User accepted with a repeated email"
+  end
+
   test "should enumerate sex code" do
     user = users(:matheus)
     assert user.male?
