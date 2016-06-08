@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   end
 
   def email
-    @available = ! User.exists?(email: params[:email])
+    @available = ! User.where(email: params[:email]).where.not(id: params[:ignore_id]).exists?
 
     render json: { available: @available }
   end

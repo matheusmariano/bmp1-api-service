@@ -55,4 +55,18 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:available)
   end
+
+  test "should ignore email from user with same id" do
+    user = users(:matheus)
+    post :email, email: user.email, ignore_id: user.id
+    assert_response :success
+    assert assigns(:available)
+  end
+
+  test "should not ignore email from user with different id" do
+    another_user = users(:matheus)
+    post :email, email: another_user.email, ignore_id: 99
+    assert_response :success
+    assert_not assigns(:available)
+  end
 end
