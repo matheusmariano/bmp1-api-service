@@ -27,6 +27,12 @@ class UsersController < ApplicationController
     render json: { deleted: true }
   end
 
+  def email
+    @available = ! User.exists?(email: params[:email])
+
+    render json: { available: @available }
+  end
+
   private
 
   def validate_and_render

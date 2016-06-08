@@ -42,4 +42,17 @@ class UsersControllerTest < ActionController::TestCase
     delete :destroy, { id: user.id }
     assert_response :success
   end
+
+  test "should set email as unavailable" do
+    user = users(:matheus)
+    post :email, email: user.email
+    assert_response :success
+    assert_not assigns(:available)
+  end
+
+  test "should set email as available" do
+    post :email, email: "available.email@me.com"
+    assert_response :success
+    assert assigns(:available)
+  end
 end
